@@ -1,0 +1,108 @@
+/* Estilos globais */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9; /* Cor de fundo suave */
+}
+
+.container {
+    text-align: center;
+    background-color: #ffffff; /* Fundo branco */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%; /* Tornar a largura responsiva */
+}
+
+.container h1 {
+    color: #4b6e6f; /* Tom verde suave */
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.rate, .timestamp {
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #333333; /* Cor escura para texto */
+}
+
+.timestamp {
+    font-size: 0.9em;
+    color: #999999; /* Cor mais suave para a data/hora */
+}
+
+input, select {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #c1c1c1;
+    background-color: #f9f9f9;
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #4b6e6f; /* Verde suave */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2d4f4d; /* Tom mais escuro no hover */
+}
+
+#resultado {
+    color: #4b6e6f;
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Foco nos campos */
+button:focus, input:focus, select:focus {
+    outline: none;
+    border-color: #4b6e6f;
+    box-shadow: 0 0 5px rgba(75, 110, 111, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .container h1 {
+        font-size: 1.5em; /* Menor fonte para telas pequenas */
+    }
+
+    input, select, button {
+        font-size: 14px; /* Ajuste do tamanho da fonte para dispositivos móveis */
+    }
+}
+
+@media (max-width: 400px) {
+    .container h1 {
+        font-size: 1.3em; /* Ajuste adicional em telas menores */
+    }
+
+    input, select, button {
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
