@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversor de Reais para Dólares</title>
+    <title>Conversor de Moedas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,12 +13,12 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #3b70c0;
+            background-color: black;
         }
 
         .container {
             text-align: center;
-            background-color: #bbeef5;
+            background-color: gray;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -65,17 +65,30 @@
         button:hover {
             background-color: #097548;
         }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: calc(100% - 24px);
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <h1>Conversor de Reais para Dólares</h1>
+        <h1>Conversor de Moedas</h1>
         <p class="rate" id="rate">Cotação atual: Carregando...</p>
         <p class="timestamp" id="timestamp"></p>
-        <input type="number" id="reais" placeholder="Digite o valor em Reais" step="0.01">
-        <button onclick="converterParaDolar()">Converter para Dólar</button>
+        <select id="tipoConversao">
+            <option value="realParaDolar">De Real para Dólar</option>
+            <option value="dolarParaReal">De Dólar para Real</option>
+        </select>
+        <input type="number" id="valor" placeholder="Digite o valor" step="0.01">
+        <button onclick="converter()">Converter</button>
         <button onclick="limparCampos()">Limpar</button>
         <p class="rate" id="resultado"></p>
     </div>
@@ -85,7 +98,6 @@
 
         // Função para buscar a cotação do dólar
         async function fetchCotacao() {
-            const apiKey = "YOUR_API_KEY"; // Substitua pela sua chave de API
             const url = `https://open.er-api.com/v6/latest/USD`;
 
             try {
@@ -110,16 +122,23 @@
             }
         }
 
-        // Função para converter reais para dólar
-        function converterParaDolar() {
-            const valorReais = parseFloat(document.getElementById("reais").value);
-            if (isNaN(valorReais) || valorReais <= 0) {
-                alert("Por favor, insira um valor válido em reais.");
+        // Função para converter entre Real e Dólar
+        function converter() {
+            const valor = parseFloat(document.getElementById("valor").value);
+            const tipoConversao = document.getElementById("tipoConversao").value;
+
+            if (isNaN(valor) || valor <= 0) {
+                alert("Por favor, insira um valor válido.");
                 return;
             }
-            if (taxaDolar > 0) {
-                const valorDolar = valorReais / taxaDolar;
-                document.getElementById("resultado").innerText = `Valor em dólares: $ ${valorDolar.toFixed(2)}`;
+
+            let resultado;
+            if (tipoConversao === "realParaDolar" && taxaDolar > 0) {
+                resultado = valor / taxaDolar;
+                document.getElementById("resultado").innerText = `Valor em dólares: $ ${resultado.toFixed(2)}`;
+            } else if (tipoConversao === "dolarParaReal" && taxaDolar > 0) {
+                resultado = valor * taxaDolar;
+                document.getElementById("resultado").innerText = `Valor em reais: R$ ${resultado.toFixed(2)}`;
             } else {
                 document.getElementById("resultado").innerText = "Erro: cotação não disponível.";
             }
@@ -127,7 +146,7 @@
 
         // Função para limpar os campos de entrada e resultado
         function limparCampos() {
-            document.getElementById("reais").value = "";
+            document.getElementById("valor").value = "";
             document.getElementById("resultado").innerText = "";
         }
 
